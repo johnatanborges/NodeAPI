@@ -8,4 +8,14 @@ router.get('/', (req, res, next) => {
     })
 })
 
+router.post('/', (req, res, next) => {
+    res.send("Test post")
+})
+
+router.put('/', (req, res, next) => {
+    const id = req.params.idT
+    res.status(201).send('Test put')
+})
+
+
 module.exports = router

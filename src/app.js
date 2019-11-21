@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 const index = require('./routes/index.js')
 const products = require('./routes/products.js')
 
-app.use('/', index)
-app.use('/products', products)
+app.use(index)
+app.use(products)
 
 module.exports = app
