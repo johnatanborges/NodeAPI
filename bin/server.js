@@ -1,5 +1,4 @@
 const app = require('../src/app.js')
-
 const http = require('http')
 
 const port = process.env.PORT || '3000'
