@@ -1,6 +1,18 @@
+const mongoose = require('mongoose')
+const Product = mongoose.model('Product')
+
 
 exports.post = (req, res, next) => {
-    res.status(201).send(req.body)
+    const product = new Product(req.body)
+
+    // product.title = req.body.title
+
+    product.save()
+        .then(() => {
+            res.status(201).send(req.body)
+        }).catch(error => {
+            res.status(400).send(error)
+        })
 }
 
 exports.put = (req, res, next) => {
