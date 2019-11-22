@@ -1,0 +1,20 @@
+
+exports.post = (req, res, next) => {
+    res.status(201).send(req.body)
+}
+
+exports.put = (req, res, next) => {
+    const id = req.params.id
+    res.status(201).send({
+        id: id,
+        item: req.body,
+        test: 'Req put'
+    })
+}
+
+exports.delete = (req, res, next) => {
+    res.status(200).send({
+        test: req.body,
+        text2: "Req delete"
+    })
+}
