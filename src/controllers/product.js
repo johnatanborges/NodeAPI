@@ -12,6 +12,16 @@ exports.get = (req, res, next) => {
         })
 }
 
+exports.getById = (req, res, next) => {
+    Product
+        .findById(req.params.id)
+        .then((data) => {
+            res.status(200).send(data)
+        }).catch(error => {
+            res.status(400).send(error)
+        })
+}
+
 exports.getBySlug = (req, res, next) => {
     Product
         .findOne({ slug: req.params.slug }, 'title description price slug tags')
@@ -63,7 +73,7 @@ exports.put = (req, res, next) => {
             }
         })
         .then(() => {
-            res.status(201).send({
+            res.status(200).send({
                 message: 'Produto atualizado com sucesso!'
             })
         }).catch(error => {
@@ -74,8 +84,15 @@ exports.put = (req, res, next) => {
 }
 
 exports.delete = (req, res, next) => {
-    res.status(200).send({
-        test: req.body,
-        text2: "Req delete"
-    })
+    Product
+        .findByIdAndDelete(req.body.id)
+        .then(() => {
+            res.status(200).send({
+                message: 'Produto removido com sucesso!'
+            })
+        }).catch(error => {
+            res.status(400).send({
+                message: 'Falha ao atualizar o produto',
+            }, console.log(error))
+        })
 }

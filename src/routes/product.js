@@ -4,6 +4,8 @@ const controller = require('../controllers/product')
 
 router.get('/products', controller.get)
 
+router.get('/products/id/:id', controller.getById)
+
 router.get('/products/:slug', controller.getBySlug)
 
 router.get('/products/tags/:tag', controller.getByTag)
