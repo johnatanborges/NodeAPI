@@ -5,8 +5,8 @@ const Product = mongoose.model('Product')
 exports.get = (req, res, next) => {
     Product
         .find({ active: true }, 'title price slug tags')
-        .then((products) => {
-            res.status(200).send(products)
+        .then((data) => {
+            res.status(200).send(data)
         }).catch(error => {
             res.status(400).send(error)
         })
@@ -15,8 +15,8 @@ exports.get = (req, res, next) => {
 exports.getBySlug = (req, res, next) => {
     Product
         .findOne({ slug: req.params.slug }, 'title description price slug tags')
-        .then((products) => {
-            res.status(200).send(products)
+        .then((data) => {
+            res.status(200).send(data)
         }).catch(error => {
             res.status(400).send(error)
         })
@@ -25,8 +25,8 @@ exports.getBySlug = (req, res, next) => {
 exports.getByTag = (req, res, next) => {
     Product
         .find({ tags: req.params.tag, active: true }, 'title description price slug tags')
-        .then(products => {
-            res.status(200).send(products)
+        .then(data => {
+            res.status(200).send(data)
         }).catch(error => {
             res.status(400).send(error)
         })
@@ -45,19 +45,32 @@ exports.post = (req, res, next) => {
     product
         .save()
         .then(() => {
-            res.status(201).send(req.body)
+            res.status(201).send({
+                message: 'Produto criado com sucesso!'
+            })
         }).catch(error => {
             res.status(400).send(error)
         })
 }
 
 exports.put = (req, res, next) => {
-    const id = req.params.id
-    res.status(201).send({
-        id: id,
-        item: req.body,
-        test: 'Req put'
-    })
+    Product
+        .findByIdAndUpdate(req.params.id, {
+            $set: {
+                title: req.body.title,
+                description: req.body.description,
+                price: req.body.price
+            }
+        })
+        .then(() => {
+            res.status(201).send({
+                message: 'Produto atualizado com sucesso!'
+            })
+        }).catch(error => {
+            res.status(400).send({
+                message: 'Falha ao atualizar o produto',
+            }, console.log(error))
+        })
 }
 
 exports.delete = (req, res, next) => {
