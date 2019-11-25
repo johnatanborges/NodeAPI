@@ -6,6 +6,8 @@ router.get('/products', controller.get)
 
 router.get('/products/:slug', controller.getBySlug)
 
+router.get('/products/tags/:tag', controller.getByTag)
+
 router.post('/products', controller.post)
 
 router.put('/products/:id', controller.put)
